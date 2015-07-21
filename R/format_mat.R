@@ -11,7 +11,7 @@
 #' @return A formatted matrix
 #' @export
 format_mat <- function(mat, log.transform = FALSE, log.base = 2,
-                       norm.method = c("quantile", "z", "max")) {
+                       norm.method = c(NULL, "quantile", "z", "max")) {
 
 	# Save the row- and col- names as some normalization methods drop the names
 	mat.row.names <- rownames(mat)
