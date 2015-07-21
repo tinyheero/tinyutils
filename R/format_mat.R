@@ -13,6 +13,8 @@
 format_mat <- function(mat, log.transform = FALSE, log.base = 2,
                        norm.method = c(NULL, "quantile", "z", "max")) {
 
+  norm.method <- match.arg(norm.method)
+
 	# Save the row- and col- names as some normalization methods drop the names
 	mat.row.names <- rownames(mat)
   mat.col.names <- colnames(mat)
