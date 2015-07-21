@@ -1,8 +1,11 @@
 Package: tinyutils
-Title: Generate utility functions to help with data analysis
-Version: 0.0.0.9001
+Title: Utility Functions to Assist With Data Analysis
+Version: 0.0.0.9002
 Authors@R: person("Fong Chun", "Chan", , "fongchunchan@gmail.com", role = c("aut", "cre"))
 Description: This packages provides set of utility functions that can be useful for various data-analysis tasks.
 Depends: R (>= 3.1.0)
 License: MIT
+Suggests:
+	preprocessCore (>= 1.28.0),
+	som (>= 0.3.5)
 LazyData: true
