@@ -14,8 +14,8 @@
 #' v2 <- c("LCOR", "NCOR1", "MLL2", "CREBBP", "CD58")
 #' v3 <- c("TP53", "UNC80", "CREBBP")
 #' inList <- list("groupA" = v1, "groupB" = v2, "groupC" = v3)
-#' MakePAMatrix(inList)
-MakePAMatrix <- function(inList) {
+#' make_PA_matrix(inList)
+make_PA_matrix <- function(inList) {
   geneList <- unique(unlist(inList))
 
   outMat <- matrix(NA, length(geneList), length(inList), dimnames = list(geneList, names(inList)))
@@ -24,4 +24,12 @@ MakePAMatrix <- function(inList) {
     outMat[, i] <- rownames(outMat) %in% curGenes
   }
   outMat
+}
+
+#' Deprecated Function
+#'
+#' This function is deprecated in favour of renaming it to make_PA_matrix
+MakePAMatrix <- function(inList) {
+  .Deprecated("make_PA_matrix")
+  make_PA_matrix(inList)
 }
