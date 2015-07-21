@@ -7,6 +7,7 @@
 #' 
 #' @param infile Path to the input file
 #' @return A matrix of the infile
+#' @export
 load_mat <- function(infile){
 	in.dt <- data.table::fread(infile)
 	in.dt <- in.dt[!duplicated(in.dt[, 1]), ]
