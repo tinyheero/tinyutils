@@ -11,7 +11,7 @@
 #' @return A formatted matrix
 #' @export
 format_mat <- function(mat, log.transform = FALSE, log.base = 2,
-                       norm.method = c(NULL, "quantile", "z", "max")) {
+                       norm.method = c("none", "quantile", "z", "max")) {
 
   norm.method <- match.arg(norm.method)
 
