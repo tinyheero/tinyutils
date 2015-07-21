@@ -4,8 +4,8 @@
 \alias{format_mat}
 \title{Format Matrix}
 \usage{
-format_mat(mat, log.transform = FALSE, log.base = 2,
-  norm.method = c("quantile", "z", "max"))
+format_mat(mat, log.transform = FALSE, log.base = 2, norm.method = c(NULL,
+  "quantile", "z", "max"))
 }
 \arguments{
 \item{mat}{The input matrix}
