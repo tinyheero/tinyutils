@@ -4,8 +4,8 @@
 \alias{format_mat}
 \title{Format Matrix}
 \usage{
-format_mat(mat, log.transform = FALSE, log.base = 2, norm.method = c(NULL,
-  "quantile", "z", "max"))
+format_mat(mat, log.transform = FALSE, log.base = 2,
+  norm.method = c("none", "quantile", "z", "max"))
 }
 \arguments{
 \item{mat}{The input matrix}
@@ -23,5 +23,7 @@ A formatted matrix
 \description{
 This function provides the ability to format your matrix in various ways.
 For instance, you can log transform, row normalize, and quantile normalize.
+It is best to use the log.transform and norm.method separately (i.e. make to
+calls of format_mat)
 }
 

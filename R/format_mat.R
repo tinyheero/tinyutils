@@ -2,6 +2,8 @@
 #'
 #' This function provides the ability to format your matrix in various ways.
 #' For instance, you can log transform, row normalize, and quantile normalize.
+#' It is best to use the log.transform and norm.method separately (i.e. make to
+#' calls of format_mat)
 #'
 #' @param mat The input matrix
 #' @param log.transform Boolean to indicate whether the log transform the 
