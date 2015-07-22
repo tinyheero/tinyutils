@@ -15,40 +15,40 @@ format_mat <- function(mat, log.transform = FALSE, log.base = 2,
 
   norm.method <- match.arg(norm.method)
 
-	# Save the row- and col- names as some normalization methods drop the names
-	mat.row.names <- rownames(mat)
+  # Save the row- and col- names as some normalization methods drop the names
+  mat.row.names <- rownames(mat)
   mat.col.names <- colnames(mat)
 
-	if (log.transform) {
-		message('Log2 transforming')
+  if (log.transform) {
+    message('Log2 transforming')
     mat <- log(mat, log.base)
-	}
+  }
 
-	if (norm.method == "quantile") {
+  if (norm.method == "quantile") {
     if (!requireNamespace("preprocessCore", quietly = TRUE)) {
       stop("preprocessCore needed for quantile normalization.  
            Please install first.",
            call. = FALSE)
     }
-		message('Quantile normalizing')
-		mat <- preprocessCore::normalize.quantiles(mat)
-		rownames(mat) <- mat.row.names
-		colnames(mat) <- mat.col.names
+    message('Quantile normalizing')
+    mat <- preprocessCore::normalize.quantiles(mat)
+    rownames(mat) <- mat.row.names
+    colnames(mat) <- mat.col.names
 
-	} else if (norm.method == "z" ) {
+  } else if (norm.method == "z" ) {
     if (!requireNamespace("som", quietly = TRUE)) {
       stop("som needed for Z-score normalization. Please install first.",
            call. = FALSE)
     }
-		message('Normalizing by Z-scores')
-		mat <- som::normalize(mat)
-		colnames(mat) <- mat.col.names
+    message('Normalizing by Z-scores')
+    mat <- som::normalize(mat)
+    colnames(mat) <- mat.col.names
 
-	} else if (norm.method == "max") {
-		message('Normalizing by maximum value')
-		maxVals <- apply(mat, 1, max)
-		mat <- mat/maxVals
-	}
+  } else if (norm.method == "max") {
+    message('Normalizing by maximum value')
+    maxVals <- apply(mat, 1, max)
+    mat <- mat/maxVals
+  }
 
-	mat
+  mat
 }
