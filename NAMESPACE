@@ -3,3 +3,4 @@
 export(format_mat)
 export(load_mat)
 export(make_PA_matrix)
+export(plot_feature_sample_mat)
