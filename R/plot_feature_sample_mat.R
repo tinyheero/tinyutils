@@ -3,7 +3,7 @@
 #' Generates a ggplot2::geom_tile plot of features by sample.
 #' It is able to deal with multiple types affecting the same sample.
 #'
-#' @param in.dt 3 column (feature, sampleID, type) data.table object
+#' @param in.dt A 3 column (feature, sampleID, type) data.table object
 #' @param feature.order character vector indicating the order of the features 
 #'   in the final plot on the y-axis
 #' @param sample.order character vector indicating the order of the samples 
@@ -17,17 +17,18 @@
 #' plot_feature_sample_mat(in.dt)
 plot_feature_sample_mat <- function(in.dt, feature.order, sample.order) {
   
-
   if (missing(feature.order)) {
+    message("Detected no feature.order. Setting feature.order")
     feature.order <- unique(in.dt[, feature])
   }
 
   if (missing(sample.order)) {
+    message("Detected no sample.order. Setting sample.order")
     sample.id.order <- unique(in.dt[, sampleID])
   }
 
-  in.dt <- in.dt[, feature := as.numeric(factor(feature, levels = feature.order)) ]
-  in.dt <- in.dt[, sampleID := as.numeric(factor(sampleID, levels = sample.id.order)) ]
+  in.dt <- in.dt[, feature := as.numeric(factor(feature, levels = feature.order))]
+  in.dt <- in.dt[, sampleID := factor(sampleID, levels = sample.id.order) ]
   in.dt <- in.dt[, shift := (1:(.N))/.N - 1/(2 * .N) - 1/2, 
                  by = list(sampleID, feature)]
   in.dt <- in.dt[, height := 1/.N, by = list(sampleID, feature)]
