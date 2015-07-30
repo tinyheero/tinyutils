@@ -17,10 +17,12 @@
 #' plot_feature_sample_mat(in.dt)
 plot_feature_sample_mat <- function(in.dt, feature.order, sample.order) {
   
-  if (is.null(feature.order)) {
+
+  if (missing(feature.order)) {
     feature.order <- unique(in.dt[, feature])
   }
-  if (is.null(sample.order)) {
+
+  if (missing(sample.order)) {
     sample.id.order <- unique(in.dt[, sampleID])
   }
 
