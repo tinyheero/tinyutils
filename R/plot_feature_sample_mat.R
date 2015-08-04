@@ -6,31 +6,39 @@
 #' @param in.dt A 3 column (feature, sampleID, type) data.table object
 #' @param feature.order character vector indicating the order of the features 
 #'   in the final plot on the y-axis
-#' @param sample.order character vector indicating the order of the samples 
+#' @param sample.id.order character vector indicating the order of the samples 
 #'   in the final plot on the x-axis
 #' @export
 #' @examples
-#' v1 <- c("RCOR1", "NCOR1", "LCOR1", "RCOR1", "RCOR1")
-#' v2 <- c("sampleA", "sampleB", "sampleA", "sampleC", "sampleA")
+#' v1 <- c("RCOR1", "NCOR1", "LCOR", "RCOR1", "RCOR1")
+#' v2 <- c("sampleA", "sampleC", "sampleB", "sampleC", "sampleA")
 #' v3 <- c("Deletion", "Deletion", "SNV", "Rearrangement", "SNV")
+#' feature.order <- c("RCOR1", "NCOR1", "LCOR")
+#' sample.id.order <- c("sampleA", "sampleB", "sampleC")
 #' in.dt <- data.table::data.table(feature = v1, sampleID = v2, type = v3)
-#' plot_feature_sample_mat(in.dt)
-plot_feature_sample_mat <- function(in.dt, feature.order, sample.order) {
+#' plot_feature_sample_mat(in.dt, feature.order, sample.id.order)
+plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order) {
   
   if (missing(feature.order)) {
     message("Detected no feature.order. Setting feature.order")
     feature.order <- unique(in.dt[, feature])
   }
+  feature.order <- rev(feature.order)
 
-  if (missing(sample.order)) {
-    message("Detected no sample.order. Setting sample.order")
+  if (missing(sample.id.order)) {
+    message("Detected no sample.id.order. Setting sample.id.order")
     sample.id.order <- unique(in.dt[, sampleID])
   }
 
-  in.dt <- in.dt[, feature := as.numeric(factor(feature, levels = feature.order))]
-  in.dt <- in.dt[, sampleID := factor(sampleID, levels = sample.id.order) ]
+  in.dt <- in.dt[, feature := as.numeric(factor(feature, 
+                                           levels = feature.order))]
+
+  in.dt <- in.dt[, sampleID := factor(sampleID, 
+                                 levels = sample.id.order)]
+
   in.dt <- in.dt[, shift := (1:(.N))/.N - 1/(2 * .N) - 1/2, 
                  by = list(sampleID, feature)]
+
   in.dt <- in.dt[, height := 1/.N, by = list(sampleID, feature)]
 
   p1 <- ggplot2::ggplot(in.dt, ggplot2::aes(x = sampleID, 
@@ -38,7 +46,10 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.order) {
                                       height = height,
                                       fill = type)) +
     ggplot2::geom_tile(color = "black", size = 1) +
-    ggplot2::scale_y_discrete(limits = 1:3, labels = feature.order)
+    ggplot2::scale_y_discrete(limits = 1:length(feature.order), 
+                              labels = feature.order) +
+    ggplot2::ylab("Feature") +
+    ggplot2::xlab("Sample ID")
 
   p1
 }

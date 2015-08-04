@@ -4,15 +4,15 @@
 \alias{plot_feature_sample_mat}
 \title{Plot a Feature-Sample Matrix}
 \usage{
-plot_feature_sample_mat(in.dt, feature.order, sample.order)
+plot_feature_sample_mat(in.dt, feature.order, sample.id.order)
 }
 \arguments{
-\item{in.dt}{3 column (feature, sampleID, type) data.table object}
+\item{in.dt}{A 3 column (feature, sampleID, type) data.table object}
 
 \item{feature.order}{character vector indicating the order of the features
 in the final plot on the y-axis}
 
-\item{sample.order}{character vector indicating the order of the samples
+\item{sample.id.order}{character vector indicating the order of the samples
 in the final plot on the x-axis}
 }
 \description{
@@ -20,10 +20,12 @@ Generates a ggplot2::geom_tile plot of features by sample.
 It is able to deal with multiple types affecting the same sample.
 }
 \examples{
-v1 <- c("RCOR1", "NCOR1", "LCOR1", "RCOR1", "RCOR1")
-v2 <- c("sampleA", "sampleB", "sampleA", "sampleC", "sampleA")
+v1 <- c("RCOR1", "NCOR1", "LCOR", "RCOR1", "RCOR1")
+v2 <- c("sampleA", "sampleC", "sampleB", "sampleC", "sampleA")
 v3 <- c("Deletion", "Deletion", "SNV", "Rearrangement", "SNV")
+feature.order <- c("RCOR1", "NCOR1", "LCOR")
+sample.id.order <- c("sampleA", "sampleB", "sampleC")
 in.dt <- data.table::data.table(feature = v1, sampleID = v2, type = v3)
-plot_feature_sample_mat(in.dt)
+plot_feature_sample_mat(in.dt, feature.order, sample.id.order)
 }
 
