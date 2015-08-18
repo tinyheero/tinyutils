@@ -22,7 +22,7 @@ format_mat <- function(mat, log.transform = FALSE, log.base = 2,
   mat.col.names <- colnames(mat)
 
   if (log.transform) {
-    message('Log2 transforming')
+    message(paste("Log", log.base, "transforming"))
     mat <- log(mat, log.base)
 
     if (any(mat < 0)) {
