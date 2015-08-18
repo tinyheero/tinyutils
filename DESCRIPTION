@@ -1,6 +1,6 @@
 Package: tinyutils
 Title: Utility Functions to Assist With Data Analysis
-Version: 0.0.0.9003
+Version: 0.0.0.9004
 Authors@R: person("Fong Chun", "Chan", , "fongchunchan@gmail.com", role = c("aut", "cre"))
 Description: This packages provides set of utility functions that can be useful for various data-analysis tasks.
 Depends: R (>= 3.1.0)
