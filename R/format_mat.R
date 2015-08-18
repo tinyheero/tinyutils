@@ -24,6 +24,10 @@ format_mat <- function(mat, log.transform = FALSE, log.base = 2,
   if (log.transform) {
     message('Log2 transforming')
     mat <- log(mat, log.base)
+
+    if (any(mat < 0)) {
+      warning("Values < 0 found in matrix. Please ensure this is what you want.")
+    }
   }
 
   if (norm.method == "quantile") {
