@@ -10,6 +10,6 @@
 #' @examples 
 #' mat <- matrix(1:20, 5, 4, dimnames = list(LETTERS[1:5], NULL))
 #' get_row_by_name(mat, c("A", "D", "E"))
-get_row_by_name <- function(in.mat, in.row.names) {
+get_row_by_names <- function(in.mat, in.row.names) {
   in.mat[in.row.names, ]
 }
