@@ -4,7 +4,7 @@
 \alias{plot_feature_sample_mat}
 \title{Plot a Feature-Sample Matrix}
 \usage{
-plot_feature_sample_mat(in.dt, feature.order, sample.id.order)
+plot_feature_sample_mat(in.dt, feature.order, sample.id.order, fill.colors)
 }
 \arguments{
 \item{in.dt}{A 3 column (feature, sampleID, type) data.table object}
@@ -14,6 +14,9 @@ in the final plot on the y-axis}
 
 \item{sample.id.order}{character vector indicating the order of the samples
 in the final plot on the x-axis}
+
+\item{fill.colors}{character vector indicating the colors of the different
+"types". The names should be the types with the value being the color}
 }
 \description{
 Generates a ggplot2::geom_tile plot of features by sample.
@@ -26,6 +29,7 @@ v3 <- c("Deletion", "Deletion", "SNV", "Rearrangement", "SNV")
 feature.order <- c("RCOR1", "NCOR1", "LCOR")
 sample.id.order <- c("sampleA", "sampleB", "sampleC")
 in.dt <- data.table::data.table(feature = v1, sampleID = v2, type = v3)
-plot_feature_sample_mat(in.dt, feature.order, sample.id.order)
+fill.colors <- c("Deletion" = "Blue", "Rearrangement" = "Green", "SNV" = "Red")
+plot_feature_sample_mat(in.dt, feature.order, sample.id.order, fill.colors = fill.colors)
 }
 

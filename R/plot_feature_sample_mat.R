@@ -8,6 +8,8 @@
 #'   in the final plot on the y-axis
 #' @param sample.id.order character vector indicating the order of the samples 
 #'   in the final plot on the x-axis
+#' @param fill.colors character vector indicating the colors of the different 
+#'   "types". The names should be the types with the value being the color
 #' @export
 #' @examples
 #' v1 <- c("RCOR1", "NCOR1", "LCOR", "RCOR1", "RCOR1")
@@ -16,11 +18,12 @@
 #' feature.order <- c("RCOR1", "NCOR1", "LCOR")
 #' sample.id.order <- c("sampleA", "sampleB", "sampleC")
 #' in.dt <- data.table::data.table(feature = v1, sampleID = v2, type = v3)
-#' plot_feature_sample_mat(in.dt, feature.order, sample.id.order)
-plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order) {
+#' fill.colors <- c("Deletion" = "Blue", "Rearrangement" = "Green", "SNV" = "Red")
+#' plot_feature_sample_mat(in.dt, feature.order, sample.id.order, fill.colors = fill.colors)
+plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.colors) {
 
   # Copy so that it doesn't change the in.dt from the pass-in
-  tmp.dt <- copy(in.dt)
+  tmp.dt <- data.table::copy(in.dt)
   
   if (missing(feature.order)) {
     message("Detected no feature.order. Setting feature.order")
@@ -54,5 +57,10 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order) {
     ggplot2::ylab("Feature") +
     ggplot2::xlab("Sample ID")
 
+  if (!missing(fill.colors)) {
+    p1 <- p1 +
+      ggplot2::scale_fill_manual(values = fill.colors)
+  }
   p1
 }
+
