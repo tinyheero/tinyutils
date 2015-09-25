@@ -53,7 +53,7 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
   }
 
   if (missing(type.order)) {
-    message("Detected no type.order Setting type.order")
+    message("Detected no type.order. Setting type.order")
     type.order <- unique(tmp.dt[, type])
   }
 
