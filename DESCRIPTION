@@ -8,7 +8,8 @@ Depends:
 	data.table (>= 1.9.4)
 License: MIT
 Imports:
-	ggplot2 (>= 1.0.0)
+	ggplot2 (>= 1.0.0),
+	dplyr (>= 0.4.3)
 Suggests:
 	preprocessCore (>= 1.28.0),
 	som (>= 0.3.5)
