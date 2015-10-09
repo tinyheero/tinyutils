@@ -36,6 +36,8 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
                              type.display.mode = c("multiple", "single"), 
                              type.order) {
 
+  type.display.mode <- match.arg(type.display.mode)
+
   # Copy so that it doesn't change the in.dt from the pass-in
   tmp.dt <- data.table::copy(in.dt)
   
