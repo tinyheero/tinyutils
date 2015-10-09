@@ -47,7 +47,7 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
   } 
 
   if (length(unique(feature.order)) != length(feature.order)) {
-    warning("There may be duplicates in your feature.order. This may cause issues")
+    warning("There may be duplicates in your feature.order. This may cause issues. ")
   }
   
   feature.order <- rev(feature.order)
