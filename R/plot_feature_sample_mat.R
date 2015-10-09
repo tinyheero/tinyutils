@@ -42,7 +42,12 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
   if (missing(feature.order)) {
     message("Detected no feature.order. Setting feature.order")
     feature.order <- unique(tmp.dt[, feature])
+  } 
+
+  if (length(unique(feature.order)) != length(feature.order)) {
+    warning("There may be duplicates in your feature.order. This may cause issues")
   }
+  
   feature.order <- rev(feature.order)
 
   if (missing(sample.id.order)) {
@@ -51,7 +56,7 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
   }
 
   if (missing(type.order)) {
-    message("Detected no type.order Setting type.order")
+    message("Detected no type.order. Setting type.order")
     type.order <- unique(tmp.dt[, type])
   }
 
