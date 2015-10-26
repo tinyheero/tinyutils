@@ -5,15 +5,17 @@
 #'
 #' @param in.dt A 3 column (feature, sampleID, type) data.table object
 #' @param feature.order character vector indicating the order of the features 
-#'   in the final plot on the y-axis
+#'   in the final plot on the y-axis. If not set, then function will set it 
+#'   automatically
 #' @param sample.id.order character vector indicating the order of the samples 
-#'   in the final plot on the x-axis
+#'   in the final plot on the x-axis. If not set, then function will set it 
+#'   automatically
 #' @param fill.colors character vector indicating the colors of the different 
 #'   "types". The names should be the types with the value being the color
-#' @param type.display.mode Specify whether multiple or a single type can appear 
-#'   in the same feature/sample cell
-#' @param type.order Specify the "priority" of the types. This has an effect when
-#'   type.display.mode is set to single. 
+#' @param type.display.mode Specify whether multiple or a single feature type 
+#'   can appear in the same feature/sample cell
+#' @param type.order Specify the "priority" of the feature types. This only 
+#'   has an effect when type.display.mode is set to single
 #' @export
 #' @examples
 #' v1 <- c("RCOR1", "NCOR1", "LCOR", "RCOR1", "RCOR1", "RCOR1", "RCOR1")
@@ -24,18 +26,25 @@
 #' in.dt <- data.table::data.table(feature = v1, sampleID = v2, type = v3)
 #' fill.colors <- c("Deletion" = "Blue", "Rearrangement" = "Green", "SNV" = "Red")
 #'
+#' plot_feature_sample_mat(in.dt)
+#' 
+#' # Specify order of features, samples, and colors
 #' plot_feature_sample_mat(in.dt, feature.order, sample.id.order, 
 #'   fill.colors = fill.colors)
 #'
+#' # Specify each cell can only have one "feature type"
 #' plot_feature_sample_mat(in.dt, feature.order, sample.id.order, fill.colors = fill.colors,
 #'   type.display.mode = "single")
 #'
+#' # Specify the specific priority of the "feature type" for cells with
+#' # multiple features
 #' plot_feature_sample_mat(in.dt, feature.order, sample.id.order, fill.colors = fill.colors,
 #'   type.display.mode = "single", type.order = c("Rearrangement", "SNV", "Deletion"))
 plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.colors,
                              type.display.mode = c("multiple", "single"), 
                              type.order) {
 
+  # Checking Inputs
   if (!data.table::is.data.table(in.dt)) {
     stop("in.dt is not a data.table")
   }
