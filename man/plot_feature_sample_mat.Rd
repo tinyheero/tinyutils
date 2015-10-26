@@ -11,19 +11,21 @@ plot_feature_sample_mat(in.dt, feature.order, sample.id.order, fill.colors,
 \item{in.dt}{A 3 column (feature, sampleID, type) data.table object}
 
 \item{feature.order}{character vector indicating the order of the features
-in the final plot on the y-axis}
+in the final plot on the y-axis. If not set, then function will set it
+automatically}
 
 \item{sample.id.order}{character vector indicating the order of the samples
-in the final plot on the x-axis}
+in the final plot on the x-axis. If not set, then function will set it
+automatically}
 
 \item{fill.colors}{character vector indicating the colors of the different
 "types". The names should be the types with the value being the color}
 
-\item{type.display.mode}{Specify whether multiple or a single type can appear
-in the same feature/sample cell}
+\item{type.display.mode}{Specify whether multiple or a single feature type
+can appear in the same feature/sample cell}
 
-\item{type.order}{Specify the "priority" of the types. This has an effect when
-type.display.mode is set to single.}
+\item{type.order}{Specify the "priority" of the feature types. This only
+has an effect when type.display.mode is set to single}
 }
 \description{
 Generates a ggplot2::geom_tile plot of features by sample.
@@ -37,10 +39,19 @@ feature.order <- c("RCOR1", "NCOR1", "LCOR")
 sample.id.order <- c("sampleA", "sampleB", "sampleC")
 in.dt <- data.table::data.table(feature = v1, sampleID = v2, type = v3)
 fill.colors <- c("Deletion" = "Blue", "Rearrangement" = "Green", "SNV" = "Red")
+
+plot_feature_sample_mat(in.dt)
+
+# Specify order of features, samples, and colors
 plot_feature_sample_mat(in.dt, feature.order, sample.id.order,
   fill.colors = fill.colors)
+
+# Specify each cell can only have one "feature type"
 plot_feature_sample_mat(in.dt, feature.order, sample.id.order, fill.colors = fill.colors,
   type.display.mode = "single")
+
+# Specify the specific priority of the "feature type" for cells with
+# multiple features
 plot_feature_sample_mat(in.dt, feature.order, sample.id.order, fill.colors = fill.colors,
   type.display.mode = "single", type.order = c("Rearrangement", "SNV", "Deletion"))
 }
