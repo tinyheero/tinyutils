@@ -36,6 +36,10 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
                              type.display.mode = c("multiple", "single"), 
                              type.order) {
 
+  if (!data.table::is.data.table(in.dt)) {
+    stop("in.dt is not a data.table")
+  }
+
   type.display.mode <- match.arg(type.display.mode)
 
   # Copy so that it doesn't change the in.dt from the pass-in
