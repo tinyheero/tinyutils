@@ -16,6 +16,7 @@
 #'   can appear in the same feature/sample cell
 #' @param type.order Specify the "priority" of the feature types. This only 
 #'   has an effect when type.display.mode is set to single
+#' @param tile.col Border color of each cell
 #' @export
 #' @examples
 #' v1 <- c("RCOR1", "NCOR1", "LCOR", "RCOR1", "RCOR1", "RCOR1", "RCOR1")
@@ -42,7 +43,7 @@
 #'   type.display.mode = "single", type.order = c("Rearrangement", "SNV", "Deletion"))
 plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.colors,
                              type.display.mode = c("multiple", "single"), 
-                             type.order) {
+                             type.order, tile.col = "black") {
 
   # Checking Inputs
   if (!data.table::is.data.table(in.dt)) {
@@ -101,7 +102,7 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
                                       y = feature + shift, 
                                       height = height,
                                       fill = type)) +
-    ggplot2::geom_tile(color = "black", size = 1) +
+    ggplot2::geom_tile(color = tile.col, size = 1) +
     ggplot2::scale_y_discrete(limits = 1:length(feature.order), 
                               labels = feature.order) +
     ggplot2::ylab("Feature") +
