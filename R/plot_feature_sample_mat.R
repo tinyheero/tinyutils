@@ -106,7 +106,6 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
                                       y = feature + shift, 
                                       height = height,
                                       fill = type)) +
-    ggplot2::geom_tile(color = tile.col, size = 1) +
     ggplot2::scale_y_discrete(limits = 1:length(feature.order), 
                               labels = feature.order) +
     ggplot2::ylab("Feature") +
