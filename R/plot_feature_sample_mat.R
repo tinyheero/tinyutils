@@ -16,7 +16,8 @@
 #'   can appear in the same feature/sample cell
 #' @param type.order Specify the "priority" of the feature types. This only 
 #'   has an effect when type.display.mode is set to single
-#' @param tile.col Border color of each cell
+#' @param tile.col Border color of each cell. If not yet, no border color is 
+#'   used
 #' @export
 #' @examples
 #' v1 <- c("RCOR1", "NCOR1", "LCOR", "RCOR1", "RCOR1", "RCOR1", "RCOR1")
@@ -28,6 +29,9 @@
 #' fill.colors <- c("Deletion" = "Blue", "Rearrangement" = "Green", "SNV" = "Red")
 #'
 #' plot_feature_sample_mat(in.dt)
+#' 
+#' # With black tile color
+#' plot_feature_sample_mat(in.dt, tile.col = "black")
 #' 
 #' # Specify order of features, samples, and colors
 #' plot_feature_sample_mat(in.dt, feature.order, sample.id.order, 
@@ -43,7 +47,7 @@
 #'   type.display.mode = "single", type.order = c("Rearrangement", "SNV", "Deletion"))
 plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.colors,
                              type.display.mode = c("multiple", "single"), 
-                             type.order, tile.col = "black") {
+                             type.order, tile.col) {
 
   # Checking Inputs
   if (!data.table::is.data.table(in.dt)) {
@@ -111,6 +115,14 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
   if (!missing(fill.colors)) {
     p1 <- p1 +
       ggplot2::scale_fill_manual(values = fill.colors)
+  }
+
+  if (!missing(tile.col)) {
+    p1 <- p1 +
+      ggplot2::geom_tile(color = tile.col, size = 1)
+  } else {
+    p1 <- p1 +
+      ggplot2::geom_tile()
   }
   p1
 }

@@ -5,8 +5,7 @@
 \title{Plot a Feature-Sample Matrix}
 \usage{
 plot_feature_sample_mat(in.dt, feature.order, sample.id.order, fill.colors,
-  type.display.mode = c("multiple", "single"), type.order,
-  tile.col = "black")
+  type.display.mode = c("multiple", "single"), type.order, tile.col)
 }
 \arguments{
 \item{in.dt}{A 3 column (feature, sampleID, type) data.table object}
@@ -28,7 +27,8 @@ can appear in the same feature/sample cell}
 \item{type.order}{Specify the "priority" of the feature types. This only
 has an effect when type.display.mode is set to single}
 
-\item{tile.col}{Border color of each cell}
+\item{tile.col}{Border color of each cell. If not yet, no border color is
+used}
 }
 \description{
 Generates a ggplot2::geom_tile plot of features by sample.
@@ -44,6 +44,9 @@ in.dt <- data.table::data.table(feature = v1, sampleID = v2, type = v3)
 fill.colors <- c("Deletion" = "Blue", "Rearrangement" = "Green", "SNV" = "Red")
 
 plot_feature_sample_mat(in.dt)
+
+# With black tile color
+plot_feature_sample_mat(in.dt, tile.col = "black")
 
 # Specify order of features, samples, and colors
 plot_feature_sample_mat(in.dt, feature.order, sample.id.order,
