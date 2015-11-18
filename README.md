@@ -19,4 +19,5 @@ ls("package:tinyutils")
 
 A quick overview of some of the key functions:
 
-* plot_feature_sample_mat: Plots a co-occurence (i.e. feature-sample) matrix plot.
+* `plot_feature_sample_mat()`: Plots a co-occurence (i.e. feature-sample) matrix plot
+* `make_presence_absence_mat()`: Create a presence/asbence (PA) matrix 

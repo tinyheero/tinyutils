@@ -16,7 +16,9 @@
 #'   can appear in the same feature/sample cell
 #' @param type.order Specify the "priority" of the feature types. This only 
 #'   has an effect when type.display.mode is set to single
-#' @param tile.col Border color of each cell
+#' @param tile.col Border color of each cell. If not yet, no border color is 
+#'   used
+#' @param rotate.x.labels Rotate the x-axes labels by a certain degree
 #' @export
 #' @examples
 #' v1 <- c("RCOR1", "NCOR1", "LCOR", "RCOR1", "RCOR1", "RCOR1", "RCOR1")
@@ -28,6 +30,12 @@
 #' fill.colors <- c("Deletion" = "Blue", "Rearrangement" = "Green", "SNV" = "Red")
 #'
 #' plot_feature_sample_mat(in.dt)
+#' 
+#' # With black tile color
+#' plot_feature_sample_mat(in.dt, tile.col = "black")
+#'
+#' # Rotate x-axes labels by 90 degrees
+#' plot_feature_sample_mat(in.dt, rotate.x.labels = 90)
 #' 
 #' # Specify order of features, samples, and colors
 #' plot_feature_sample_mat(in.dt, feature.order, sample.id.order, 
@@ -43,7 +51,7 @@
 #'   type.display.mode = "single", type.order = c("Rearrangement", "SNV", "Deletion"))
 plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.colors,
                              type.display.mode = c("multiple", "single"), 
-                             type.order, tile.col = "black") {
+                             type.order, tile.col, rotate.x.labels) {
 
   # Checking Inputs
   if (!data.table::is.data.table(in.dt)) {
@@ -51,6 +59,15 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
   }
 
   type.display.mode <- match.arg(type.display.mode)
+
+  # arg parameter cannot be a numeric vector
+  if (missing(rotate.x.labels)) {
+    rotate.x.labels <- 0
+  } else {
+    if (!rotate.x.labels %in% c(45, 90)) {
+      stop("rotate.x.labels must be either 45 or 90")
+    }
+  }
 
   # Copy so that it doesn't change the in.dt from the pass-in
   tmp.dt <- data.table::copy(in.dt)
@@ -102,7 +119,6 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
                                       y = feature + shift, 
                                       height = height,
                                       fill = type)) +
-    ggplot2::geom_tile(color = tile.col, size = 1) +
     ggplot2::scale_y_discrete(limits = 1:length(feature.order), 
                               labels = feature.order) +
     ggplot2::ylab("Feature") +
@@ -111,6 +127,26 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
   if (!missing(fill.colors)) {
     p1 <- p1 +
       ggplot2::scale_fill_manual(values = fill.colors)
+  }
+
+  if (!missing(tile.col)) {
+    p1 <- p1 +
+      ggplot2::geom_tile(color = tile.col, size = 1)
+  } else {
+    p1 <- p1 +
+      ggplot2::geom_tile()
+  }
+
+  if (rotate.x.labels == 90) {
+    p1 <- p1 +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, 
+                                                         hjust = 1, 
+                                                         vjust = 0.5))
+  } else if (rotate.x.labels == 45) {
+    p1 <- p1 +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, 
+                                                         hjust = 1, 
+                                                         vjust = 1))
   }
   p1
 }
