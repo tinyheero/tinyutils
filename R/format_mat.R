@@ -41,7 +41,7 @@ format_mat <- function(mat, log.transform = FALSE, log.base = 2,
     rownames(mat) <- mat.row.names
     colnames(mat) <- mat.col.names
 
-  } else if (norm.method == "z" ) {
+  } else if (norm.method == "z") {
     if (!requireNamespace("som", quietly = TRUE)) {
       stop("som needed for Z-score normalization. Please install first.",
            call. = FALSE)
