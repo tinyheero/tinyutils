@@ -8,7 +8,7 @@
 #' @param in.ggplot Input ggplot with legend
 #' @return ggplot legend
 #' @export
-get_legend <- function(in.ggplot) {
+get_gg_legend <- function(in.ggplot) {
   tmp <- ggplot2::ggplot_gtable(ggplot2::ggplot_build(in.ggplot))
   leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
   tmp$grobs[[leg]]
