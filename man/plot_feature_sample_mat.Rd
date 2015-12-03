@@ -4,12 +4,12 @@
 \alias{plot_feature_sample_mat}
 \title{Plot a Feature-Sample Matrix}
 \usage{
-plot_feature_sample_mat(in.dt, feature.order, sample.id.order, fill.colors,
-  type.display.mode = c("multiple", "single"), type.order, tile.col,
-  rotate.x.labels)
+plot_feature_sample_mat(in.df, feature.order, sample.id.order, fill.colors,
+  type.display.mode = c("multiple", "single"), type.order, tile.col = NA,
+  rotate.x.labels, missing.fill.col)
 }
 \arguments{
-\item{in.dt}{A 3 column (feature, sampleID, type) data.table object}
+\item{in.df}{A 3 column (feature, sampleID, type) data.frame object}
 
 \item{feature.order}{character vector indicating the order of the features
 in the final plot on the y-axis. If not set, then function will set it
@@ -32,6 +32,8 @@ has an effect when type.display.mode is set to single}
 used}
 
 \item{rotate.x.labels}{Rotate the x-axes labels by a certain degree}
+
+\item{missing.fill.col}{Color of the cell that has missing values}
 }
 \description{
 Generates a ggplot2::geom_tile plot of features by sample.
@@ -43,13 +45,17 @@ v2 <- c("sampleA", "sampleC", "sampleB", "sampleC", "sampleA", "sampleC", "sampl
 v3 <- c("Deletion", "Deletion", "SNV", "Rearrangement", "SNV", "Rearrangement", "SNV")
 feature.order <- c("RCOR1", "NCOR1", "LCOR")
 sample.id.order <- c("sampleA", "sampleB", "sampleC")
-in.dt <- data.table::data.table(feature = v1, sampleID = v2, type = v3)
+in.df <- dplyr::data_frame(feature = v1, sampleID = v2, type = v3)
 fill.colors <- c("Deletion" = "Blue", "Rearrangement" = "Green", "SNV" = "Red")
 
 plot_feature_sample_mat(in.dt)
 
 # With black tile color
 plot_feature_sample_mat(in.dt, tile.col = "black")
+
+# Fill in missing values with a lightgrey color
+plot_feature_sample_mat(in.dt, tile.col = "black",
+  missing.fill.col = "lightgrey")
 
 # Rotate x-axes labels by 90 degrees
 plot_feature_sample_mat(in.dt, rotate.x.labels = 90)

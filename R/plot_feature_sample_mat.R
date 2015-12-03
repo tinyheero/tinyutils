@@ -3,7 +3,7 @@
 #' Generates a ggplot2::geom_tile plot of features by sample.
 #' It is able to deal with multiple types affecting the same sample.
 #'
-#' @param in.dt A 3 column (feature, sampleID, type) data.table object
+#' @param in.df A 3 column (feature, sampleID, type) data.frame object
 #' @param feature.order character vector indicating the order of the features 
 #'   in the final plot on the y-axis. If not set, then function will set it 
 #'   automatically
@@ -19,6 +19,7 @@
 #' @param tile.col Border color of each cell. If not yet, no border color is 
 #'   used
 #' @param rotate.x.labels Rotate the x-axes labels by a certain degree
+#' @param missing.fill.col Color of the cell that has missing values
 #' @export
 #' @examples
 #' v1 <- c("RCOR1", "NCOR1", "LCOR", "RCOR1", "RCOR1", "RCOR1", "RCOR1")
@@ -26,13 +27,17 @@
 #' v3 <- c("Deletion", "Deletion", "SNV", "Rearrangement", "SNV", "Rearrangement", "SNV")
 #' feature.order <- c("RCOR1", "NCOR1", "LCOR")
 #' sample.id.order <- c("sampleA", "sampleB", "sampleC")
-#' in.dt <- data.table::data.table(feature = v1, sampleID = v2, type = v3)
+#' in.df <- dplyr::data_frame(feature = v1, sampleID = v2, type = v3)
 #' fill.colors <- c("Deletion" = "Blue", "Rearrangement" = "Green", "SNV" = "Red")
 #'
 #' plot_feature_sample_mat(in.dt)
 #' 
 #' # With black tile color
 #' plot_feature_sample_mat(in.dt, tile.col = "black")
+#'
+#' # Fill in missing values with a lightgrey color
+#' plot_feature_sample_mat(in.dt, tile.col = "black", 
+#'   missing.fill.col = "lightgrey")
 #'
 #' # Rotate x-axes labels by 90 degrees
 #' plot_feature_sample_mat(in.dt, rotate.x.labels = 90)
@@ -49,13 +54,18 @@
 #' # multiple features
 #' plot_feature_sample_mat(in.dt, feature.order, sample.id.order, fill.colors = fill.colors,
 #'   type.display.mode = "single", type.order = c("Rearrangement", "SNV", "Deletion"))
-plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.colors,
+plot_feature_sample_mat <- function(in.df, feature.order, sample.id.order, fill.colors,
                              type.display.mode = c("multiple", "single"), 
-                             type.order, tile.col, rotate.x.labels) {
+                             type.order, tile.col = NA, rotate.x.labels, 
+                             missing.fill.col) {
 
-  # Checking Inputs
-  if (!data.table::is.data.table(in.dt)) {
-    stop("in.dt is not a data.table")
+  if (!missing(missing.fill.col)) {
+    message("Detected missing.fill.col parameter")
+    in.df.grid <- expand.grid(feature = unique(in.df[["feature"]]),
+                              sampleID = unique(in.df[["sampleID"]]),
+                              stringsAsFactors = FALSE)
+
+    in.df <- dplyr::right_join(in.df, in.df.grid)
   }
 
   type.display.mode <- match.arg(type.display.mode)
@@ -69,12 +79,13 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
     }
   }
 
-  # Copy so that it doesn't change the in.dt from the pass-in
+  # Copy so that it doesn't change the in.df from the pass-in
+  in.dt <- data.table::data.table(in.df)
   tmp.dt <- data.table::copy(in.dt)
   
   if (missing(feature.order)) {
     message("Detected no feature.order. Setting feature.order")
-    feature.order <- unique(tmp.dt[, feature])
+    feature.order <- unique(tmp.dt[["feature"]])
   } 
 
   if (length(unique(feature.order)) != length(feature.order)) {
@@ -85,12 +96,18 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
 
   if (missing(sample.id.order)) {
     message("Detected no sample.id.order. Setting sample.id.order")
-    sample.id.order <- unique(tmp.dt[, sampleID])
+    sample.id.order <- unique(tmp.dt[["sampleID"]])
+  } else {
+    missing.samples <- setdiff(unique(tmp.dt[["sampleID"]]), sample.id.order)
+    if (length(missing.samples) > 0) {
+      warning(paste("sampleID in in.df not found in sample.id.order:", 
+                    paste(missing.samples, collapse = ", ")))
+    }
   }
 
   if (missing(type.order)) {
     message("Detected no type.order. Setting type.order")
-    type.order <- unique(tmp.dt[, type])
+    type.order <- unique(tmp.dt[["type"]])
   }
 
   if (type.display.mode == "single") {
@@ -129,12 +146,20 @@ plot_feature_sample_mat <- function(in.dt, feature.order, sample.id.order, fill.
       ggplot2::scale_fill_manual(values = fill.colors)
   }
 
-  if (!missing(tile.col)) {
+  if (missing(missing.fill.col)) {
     p1 <- p1 +
       ggplot2::geom_tile(color = tile.col, size = 1)
   } else {
+
+    # Plot two geom_tile. 1 for data present and 1 for data missing
+    filter.crit.1 <- lazyeval::interp(~ !is.na(type), .values = list(type = as.name("type")))
+    filter.crit.2 <- lazyeval::interp(~ is.na(type), .values = list(type = as.name("type")))
+
     p1 <- p1 +
-      ggplot2::geom_tile()
+      ggplot2::geom_tile(data = dplyr::filter_(tmp.dt, filter.crit.1), 
+                         color = tile.col, size = 1) +
+      ggplot2::geom_tile(data = dplyr::filter_(tmp.dt, filter.crit.2), 
+                         fill = missing.fill.col, color = tile.col, size = 1)
   }
 
   if (rotate.x.labels == 90) {
