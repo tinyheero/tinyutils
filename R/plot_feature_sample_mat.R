@@ -59,6 +59,10 @@ plot_feature_sample_mat <- function(in.df, feature.order, sample.id.order, fill.
                              type.order, tile.col = NA, rotate.x.labels, 
                              missing.fill.col) {
 
+  .Deprecated("plot_cofeature_mat", "cofeatureR", 
+              paste("This function has been moved to the cofeatureR package and",
+                    "renamed to plot_cofeature_mat."))
+
   if (!missing(missing.fill.col)) {
     message("Detected missing.fill.col parameter")
     in.df.grid <- expand.grid(feature = unique(in.df[["feature"]]),
