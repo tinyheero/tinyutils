@@ -35,6 +35,16 @@
 #' get_snv_read_count(bamfile, scan.bam.param)
 get_snv_read_count <- function(bamfile, scan.bam.param, pileup.param) {
 
+  if (!requireNamespace("Rsamtools", quietly = TRUE)) {
+    stop("Pkg needed for this function to work. Please install it.",
+      call. = FALSE)
+  }
+
+  if (!requireNamespace("GenomicRanges", quietly = TRUE)) {
+    stop("Pkg needed for this function to work. Please install it.",
+      call. = FALSE)
+  }
+
   bam.file <- Rsamtools::BamFile(bamfile)
 
   if (missing(bamfile)) {
