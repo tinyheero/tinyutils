@@ -1,5 +1,7 @@
 # tinyutils
 
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tinyutils)](http://cran.r-project.org/package=tinyutils)
+
 R package with utility functions to help with data analysis
 
 # How to Install
