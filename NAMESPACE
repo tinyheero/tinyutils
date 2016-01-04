@@ -3,6 +3,7 @@
 export(format_mat)
 export(get_gg_legend)
 export(get_rows_by_names)
+export(get_snv_read_count)
 export(gg_color_hue)
 export(load_mat)
 export(make_PA_matrix)
