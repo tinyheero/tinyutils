@@ -20,6 +20,6 @@ by rownames.
 }
 \examples{
 mat <- matrix(1:20, 5, 4, dimnames = list(LETTERS[1:5], NULL))
-get_row_by_name(mat, c("A", "D", "E"))
+get_rows_by_names(mat, c("A", "D", "E"))
 }
 

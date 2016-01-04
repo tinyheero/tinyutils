@@ -48,29 +48,29 @@ sample.id.order <- c("sampleA", "sampleB", "sampleC")
 in.df <- dplyr::data_frame(feature = v1, sampleID = v2, type = v3)
 fill.colors <- c("Deletion" = "Blue", "Rearrangement" = "Green", "SNV" = "Red")
 
-plot_feature_sample_mat(in.dt)
+plot_feature_sample_mat(in.df)
 
 # With black tile color
-plot_feature_sample_mat(in.dt, tile.col = "black")
+plot_feature_sample_mat(in.df, tile.col = "black")
 
 # Fill in missing values with a lightgrey color
-plot_feature_sample_mat(in.dt, tile.col = "black",
+plot_feature_sample_mat(in.df, tile.col = "black",
   missing.fill.col = "lightgrey")
 
 # Rotate x-axes labels by 90 degrees
-plot_feature_sample_mat(in.dt, rotate.x.labels = 90)
+plot_feature_sample_mat(in.df, rotate.x.labels = 90)
 
 # Specify order of features, samples, and colors
-plot_feature_sample_mat(in.dt, feature.order, sample.id.order,
+plot_feature_sample_mat(in.df, feature.order, sample.id.order,
   fill.colors = fill.colors)
 
 # Specify each cell can only have one "feature type"
-plot_feature_sample_mat(in.dt, feature.order, sample.id.order, fill.colors = fill.colors,
+plot_feature_sample_mat(in.df, feature.order, sample.id.order, fill.colors = fill.colors,
   type.display.mode = "single")
 
 # Specify the specific priority of the "feature type" for cells with
 # multiple features
-plot_feature_sample_mat(in.dt, feature.order, sample.id.order, fill.colors = fill.colors,
+plot_feature_sample_mat(in.df, feature.order, sample.id.order, fill.colors = fill.colors,
   type.display.mode = "single", type.order = c("Rearrangement", "SNV", "Deletion"))
 }
 
