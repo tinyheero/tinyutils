@@ -15,6 +15,7 @@ Some functions require some bioconductor packages in order to work. As this pack
 ```{r}
 ## try http:// if https:// URLs are not supported
 source("https://bioconductor.org/biocLite.R")
+biocLite("GenomicRanges")
 biocLite("Rsamtools")
 ```
 
