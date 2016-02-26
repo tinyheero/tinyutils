@@ -5,20 +5,26 @@
 \title{Format Matrix}
 \usage{
 format_mat(mat, log.transform = FALSE, log.base = 2,
-  norm.method = c("none", "quantile", "z", "max"))
+  norm.method = c("none", "quantile", "z", "max"), min.val)
 }
 \arguments{
-\item{mat}{The input matrix}
+\item{mat}{The input matrix.}
 
 \item{log.transform}{Boolean to indicate whether the log transform the
-matrix}
+matrix.}
 
-\item{log.base}{The base to use for the log transformation}
+\item{log.base}{The base to use for the log transformation.}
 
-\item{correct.inf.flag}{Booelean to set whether}
+\item{min.val}{Minimum value of the matrix. Any values in the matrix below
+this value will be set to this value. This is useful if trying to log
+transform a matrix. For instance, if log2 transforming then any values
+less than 1 will produce negative values. Setting min.val = 1 will ensure
+that any values less than 1 be log transformed to 0.}
+
+\item{correct.inf.flag}{Booelean to set whether.}
 }
 \value{
-A formatted matrix
+A formatted matrix.
 }
 \description{
 This function provides the ability to format your matrix in various ways.
