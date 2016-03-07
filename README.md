@@ -21,6 +21,15 @@ biocLite("GenomicRanges")
 biocLite("Rsamtools")
 ```
 
+You can also install this through bioconda: 
+
+```{r}
+conda install r-devtools
+conda install bioconductor-genomicranges
+conda install bioconductor-rsamtools
+devtools::install_github("tinyheero/tinyutils")
+```
+
 # Overview
 
 To see the full list of exported functions:
