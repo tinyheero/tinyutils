@@ -4,10 +4,12 @@
 \alias{load_mat}
 \title{Load a Matrix}
 \usage{
-load_mat(infile)
+load_mat(infile, ...)
 }
 \arguments{
 \item{infile}{Path to the input file}
+
+\item{...}{Parameters to pass into \code{data.table::fread()}}
 }
 \value{
 A matrix of the infile
