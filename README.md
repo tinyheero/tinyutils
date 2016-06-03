@@ -24,9 +24,7 @@ biocLite("Rsamtools")
 You can also install this through bioconda: 
 
 ```{r}
-conda install r-devtools
-conda install bioconductor-genomicranges
-conda install bioconductor-rsamtools
+conda install r-devtools bioconductor-genomicranges bioconductor-rsamtools
 devtools::install_github("tinyheero/tinyutils")
 ```
 
