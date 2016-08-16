@@ -7,6 +7,7 @@
 #'   specified, then the same input matrix is returned.
 #' @return matrix with values above or below the diagonal depending on the 
 #'   tri.type.
+#' @export
 get_lower_upper_tri <- function(cor.mat, tri.type = c("none", "lower", 
                                                       "upper")) {
 
