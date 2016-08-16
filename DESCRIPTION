@@ -1,18 +1,20 @@
 Package: tinyutils
 Title: Utility Functions to Assist With Data Analysis
-Version: 0.0.0.9016
+Version: 0.0.0.9017
 Authors@R: person("Fong Chun", "Chan", , "fongchunchan@gmail.com", role = c("aut", "cre"))
-Description: This packages provides set of utility functions that can be useful for various data-analysis tasks.
-Depends: 
-	R (>= 3.1.0), 
-	data.table (>= 1.9.4)
+Description: This packages provides set of utility functions that can be useful
+    for various data-analysis tasks.
+Depends:
+    R (>= 3.1.0),
+    data.table (>= 1.9.4)
 License: MIT
-Imports: 
+Imports:
     ggplot2 (>= 1.0.0),
     dplyr (>= 0.4.3)
-Suggests: 
+Suggests:
     preprocessCore (>= 1.28.0),
     som (>= 0.3.5),
     Rsamtools (>= 1.20.5),
     GenomicRanges (>= 1.20.8)
 LazyData: true
+RoxygenNote: 5.0.1
