@@ -25,7 +25,7 @@ You can also install this through bioconda:
 
 ```{r}
 conda install r-devtools bioconductor-genomicranges bioconductor-rsamtools
-devtools::install_github("tinyheero/tinyutils", upgrade_dependencies = FALSE
+devtools::install_github("tinyheero/tinyutils", upgrade_dependencies = FALSE)
 ```
 
 # Overview
