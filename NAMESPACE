@@ -2,6 +2,7 @@
 
 export(fancy_scientific)
 export(format_mat)
+export(get_cols_by_names)
 export(get_gg_legend)
 export(get_lower_upper_tri)
 export(get_rows_by_names)
