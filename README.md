@@ -8,13 +8,13 @@ R package with utility functions to help with data analysis
 
 To install this package, use devtools:
 
-```{r}
+```r
 devtools::install_github("tinyheero/tinyutils", upgrade_dependencies = FALSE)
 ```
 
 Some functions require some bioconductor packages in order to work. As this package is not part of bioconductor, devtools will not automatically install it for you ([see this thread for more details](https://github.com/hadley/devtools/issues/700)). You will have to install them manually:
 
-```{r}
+```r
 ## try http:// if https:// URLs are not supported
 source("https://bioconductor.org/biocLite.R")
 biocLite("GenomicRanges")
@@ -23,7 +23,7 @@ biocLite("Rsamtools")
 
 You can also install this through bioconda: 
 
-```{r}
+```r
 conda install r-devtools bioconductor-genomicranges bioconductor-rsamtools
 devtools::install_github("tinyheero/tinyutils", upgrade_dependencies = FALSE)
 ```
