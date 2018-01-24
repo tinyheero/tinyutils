@@ -1,6 +1,6 @@
 # tinyutils
 
-[![Anaconda-Server Badge](https://anaconda.org/fongchun/r-survutils/badges/version.svg)](https://anaconda.org/fongchun/r-survutils)
+[![Anaconda-Server Badge](https://anaconda.org/fongchun/r-tinyutils/badges/version.svg)](https://anaconda.org/fongchun/r-tinyutils)
 
 R package with utility functions to help with data analysis
 
