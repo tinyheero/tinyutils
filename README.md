@@ -1,12 +1,18 @@
 # tinyutils
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tinyutils)](http://cran.r-project.org/package=tinyutils) [![Travis-CI Build Status](https://travis-ci.org/tinyheero/tinyutils.svg?branch=master)](https://travis-ci.org/tinyheero/tinyutils)
+[![Anaconda-Server Badge](https://anaconda.org/fongchun/r-survutils/badges/version.svg)](https://anaconda.org/fongchun/r-survutils)
 
 R package with utility functions to help with data analysis
 
 # How to Install
 
-To install this package, use devtools:
+The preferred way to install this package is through conda:
+
+```
+conda install -c fongchun tinyutils
+```
+
+Alternatively, you can install this through use devtools:
 
 ```r
 devtools::install_github("tinyheero/tinyutils", upgrade_dependencies = FALSE)
