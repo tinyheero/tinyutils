@@ -1,3 +1,7 @@
+# tinyutils 0.1.0
+
+* Released 0.1.0 and create a conda package
+
 # tinyutils 0.0.0.9015
 
 * Added the `get_snv_read_count` function. 
