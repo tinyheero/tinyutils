@@ -9,7 +9,7 @@ R package with utility functions to help with data analysis
 The preferred way to install this package is through conda:
 
 ```
-conda install -c fongchun tinyutils
+conda install -c fongchun r-tinyutils
 ```
 
 Alternatively, you can install this through use devtools:
